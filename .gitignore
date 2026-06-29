@@ -1,0 +1,11 @@
+# colcon / ROS 2 workspace artifacts (when built inside repo tree)
+build/
+install/
+log/
+.colcon/
+
+# Editor / OS
+*.swp
+*~
+.vscode/
+.idea/
