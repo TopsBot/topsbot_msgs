@@ -1,0 +1,7 @@
+topsbot_msgs
+Copyright 2026 TOPSBOT contributors
+
+This product includes ROS 2 message definitions for TOPSBOT perception pipelines.
+
+Message semantics for shared-memory image transport are aligned with the
+d-robotics hbm_img_msgs design for interoperability within the TOPSBOT ecosystem.
