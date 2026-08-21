@@ -11,4 +11,9 @@ uint32 step
 uint8[12] encoding
 uint8[921600] data
 
+# Physical address of data[] inside the FastDDS dmabuf-backed shared
+# segment. Hardware consumers (PP/encoder) wrap it into an fd via
+# LOOKUP_BY_PHYS and skip the copy. 0 = not available.
+uint64 phys_addr
+
 uint32 MAX_SIZE=921600
