@@ -2,6 +2,19 @@
 
 All notable changes to this repository are documented here.
 
+## 0.4.1 (2026-09-24)
+
+### Added
+
+- `tb_seg_msgs`: segmentation results (`TbSegmentation`).
+
+### Changed
+
+- Update script location for release tooling.
+- Align all packages (`tb_img_msgs`, `tb_det_msgs`, `tb_cls_msgs`, `tb_seg_msgs`) to repository version 0.4.1.
+- Root `README.md` / `README_cn.md`: document all four packages for 0.4.1.
+- `release.yaml`: `version` / `release` → 0.4.1; export `tb_seg_msgs/`.
+
 ## 0.4.0 (2026-08-20)
 
 ### Added

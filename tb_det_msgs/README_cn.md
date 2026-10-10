@@ -103,7 +103,7 @@ source install/setup.bash
 交叉编译：
 
 ```bash
-topsbot_ws/tools/build.sh -p MES20 -s tb_det_msgs
+topsbot_ws/tools/scripts/build.sh -p MES20 -s tb_det_msgs
 ```
 
 # 使用示例

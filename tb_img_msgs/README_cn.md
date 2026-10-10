@@ -93,7 +93,7 @@ source install/setup.bash
 交叉编译：
 
 ```bash
-topsbot_ws/tools/build.sh -p MES20 -s tb_img_msgs
+topsbot_ws/tools/scripts/build.sh -p MES20 -s tb_img_msgs
 ```
 
 # C++ 示例

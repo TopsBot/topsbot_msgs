@@ -4,14 +4,16 @@
 
 ROS 2 custom message repository for the TOPSBOT platform. This repo defines **interface types only** — no executable nodes.
 
-**Current release: 0.3.0** — see [CHANGELOG.md](./CHANGELOG.md).
+**Current release: 0.4.1** — see [CHANGELOG.md](./CHANGELOG.md).
 
 ## Packages
 
 | Package | Version | Documentation |
 | ------- | ------- | ------------- |
-| [tb_img_msgs](./tb_img_msgs/) | 0.3.0 | [README.md](./tb_img_msgs/README.md) · [README_cn.md](./tb_img_msgs/README_cn.md) |
-| [tb_det_msgs](./tb_det_msgs/) | 0.3.0 | [README.md](./tb_det_msgs/README.md) · [README_cn.md](./tb_det_msgs/README_cn.md) |
+| [tb_img_msgs](./tb_img_msgs/) | 0.4.1 | [README.md](./tb_img_msgs/README.md) · [README_cn.md](./tb_img_msgs/README_cn.md) |
+| [tb_det_msgs](./tb_det_msgs/) | 0.4.1 | [README.md](./tb_det_msgs/README.md) · [README_cn.md](./tb_det_msgs/README_cn.md) |
+| [tb_cls_msgs](./tb_cls_msgs/) | 0.4.1 | [README_cn.md](./tb_cls_msgs/README_cn.md) |
+| [tb_seg_msgs](./tb_seg_msgs/) | 0.4.1 | — |
 
 ## Message overview
 
@@ -32,6 +34,18 @@ Uncompressed formats are split by resolution; JPEG and H26x use dedicated types 
 | `TbPerceptionTargets` | Detection / perception publish (e.g. `topsbot_yolo_det` → `/detections`) |
 | `TbTarget`, `TbRoi`, `TbPoint`, `TbPerf`, `TbPerceptionInfo` | Building blocks (`TbPoint` / `track_id` since **0.3.0**) |
 
+### tb_cls_msgs (classification)
+
+| Message | Role |
+| ------- | ---- |
+| `TbClassification` / `TbClassifications` | Image-classification results (**new in 0.4.0**) |
+
+### tb_seg_msgs (segmentation)
+
+| Message | Role |
+| ------- | ---- |
+| `TbSegmentation` | Per-frame semantic segmentation (`class_map`, size, perf) (**new in 0.4.1**) |
+
 ## Repository layout
 
 ```
@@ -39,7 +53,9 @@ topsbot_msgs/
 ├── CHANGELOG.md
 ├── README.md / README_cn.md
 ├── tb_img_msgs/
-└── tb_det_msgs/
+├── tb_det_msgs/
+├── tb_cls_msgs/
+└── tb_seg_msgs/
 ```
 
 ## Build
@@ -49,20 +65,25 @@ topsbot_msgs/
 - ROS 2 Humble (or compatible distro)
 - `rosidl_default_generators` / `rosidl_default_runtime`
 - `builtin_interfaces`, `std_msgs`, `sensor_msgs` (`tb_det_msgs`)
+- `tb_det_msgs` (`tb_cls_msgs`, `tb_seg_msgs`)
 
 ### From source
 
 Place this repo under your workspace `src/`, then:
 
 ```bash
-colcon build --packages-select tb_img_msgs tb_det_msgs
+colcon build --packages-select tb_img_msgs tb_det_msgs tb_cls_msgs tb_seg_msgs
 source install/setup.bash
 ```
 
 ### apt
 
 ```bash
-sudo apt install -y tbros-humble-tb-img-msgs tbros-humble-tb-det-msgs
+sudo apt install -y \
+  tbros-humble-tb-img-msgs \
+  tbros-humble-tb-det-msgs \
+  tbros-humble-tb-cls-msgs \
+  tbros-humble-tb-seg-msgs
 ```
 
 ## Use in other packages
@@ -72,6 +93,8 @@ sudo apt install -y tbros-humble-tb-img-msgs tbros-humble-tb-det-msgs
 ```xml
 <depend>tb_img_msgs</depend>
 <depend>tb_det_msgs</depend>  <!-- optional -->
+<depend>tb_cls_msgs</depend>  <!-- optional -->
+<depend>tb_seg_msgs</depend>  <!-- optional -->
 ```
 
 ### CMakeLists.txt
@@ -79,8 +102,11 @@ sudo apt install -y tbros-humble-tb-img-msgs tbros-humble-tb-det-msgs
 ```cmake
 find_package(tb_img_msgs REQUIRED)
 find_package(tb_det_msgs REQUIRED)
+find_package(tb_cls_msgs REQUIRED)
+find_package(tb_seg_msgs REQUIRED)
 
-ament_target_dependencies(your_node tb_img_msgs tb_det_msgs)
+ament_target_dependencies(your_node
+  tb_img_msgs tb_det_msgs tb_cls_msgs tb_seg_msgs)
 ```
 
 After adding a dependency, rebuild message packages and your node when `.msg` files change.
